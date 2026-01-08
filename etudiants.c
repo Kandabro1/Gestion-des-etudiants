@@ -4,7 +4,7 @@
 
 
 // Procedure pour gérer le nombre d'étudiants par Alhadj
-void gererNombreEtudiants(){
+int gererNombreEtudiants(){
     FILE *f;
     char ligne[100];
     int N;
@@ -43,24 +43,6 @@ void gererNombreEtudiants(){
     }
 }
 
-// Procedure pour enregistrer le nombre d'étudiants a gerer par Alhadj
-void gererNombreEtudiants(int nb){
-    FILE *f;
-
-    // Ouverture en mode ajout (écriture à la fin)
-    f = fopen("etudiants.txt", "a");
-
-    if (f == NULL)
-    {
-        printf("Erreur : impossible d'ouvrir le fichier.\n");
-        return;
-    }
-
-    // Écriture du nombre d'étudiants à la fin du fichier
-    fprintf(f, "Nombre d'etudiants enregistres : %d\n", nb);
-
-    fclose(f);
-}
 
 
 // Procedure pour sauvegarder les etudiants dans un fichier par Alhadj
@@ -124,8 +106,7 @@ void sauvegarderNbEtudiants(int nb){
 }
 
 //Procedure pour Afficher le nombre d'étudiants par Alhadj
-int voirNombreEtudiants(int nb)
-{
+int voirNombreEtudiants(int nb){
     printf("\nNombre d'etudiants enregistres : %d\n", nb);
     return nb;
 }

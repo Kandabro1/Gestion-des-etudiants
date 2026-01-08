@@ -31,6 +31,14 @@ void modifierEtudiant(etudiant T[], int nb);
 
 void recherche(etudiant T[], int nb);
 
+int gererNombreEtudiants();
+
+int voirNombreEtudiants(int nb);
+
+int lireNbEtudiants();
+
+void sauvegarderNbEtudiants(int nb);
+
 void supprimerEtudiant(etudiant T[], int *nb);
 
 void trierParNom(etudiant T[], int nb);
