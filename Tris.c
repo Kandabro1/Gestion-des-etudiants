@@ -1,6 +1,7 @@
 /* Fonction pour comparer sans majuscules */
 int comparer_noms(char *nom1, char *nom2) {
     int i = 0;
+    
     while (nom1[i] && nom2[i]) {
         char c1 = nom1[i];
         char c2 = nom2[i];
