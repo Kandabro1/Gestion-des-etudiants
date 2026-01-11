@@ -120,16 +120,42 @@ void enregistrerEtudiants(etudiant T[], int *nb, int N) {
 
 // Procedure pour modifier un étudiant par bobboy
 void modifierEtudiant(etudiant T[], int nb) {
-    /* 
-    Code de bobboy 
-    */
+    int mat, pos;
+    printf("\nEntrer le matricule de l'etudiant a modifier: ");
+    scanf("%d", &mat);
+
+    pos = chercherEtudiant(T, nb, mat);
+
+    if (pos == -1) {
+        printf("Etudiant non trouve !");
+    } else {
+        printf("Nouveau nom: ");
+        scanf("%s", T[pos].nom);
+        printf("Nouveau prenom: ");
+        scanf("%s", T[pos].prenom);
+        printf("Nouvelle moyenne: ");
+        scanf("%f", &T[pos].moyenne);
+        printf("Modification reussie !");
+    }
 }
 
 // Procedure pour supprimer un étudiant par bobboy
 void supprimerEtudiant(etudiant T[], int *nb) {
-    /* 
-    Code de bobboy 
-    */
+    int mat, pos;
+    printf("\nEntrer le matricule de l'etudiant a supprimer: ");
+    scanf("%d", &mat);
+
+    pos = chercherEtudiant(T, *nb, mat);
+
+    if (pos == -1) {
+        printf("Etudiant non trouve !");
+    } else {
+        for (int i = pos; i < *n - 1; i++) {
+            T[i] = T[i + 1];
+        }
+        (*n)--;
+        printf("Etudiant supprime avec succes !");
+    }
 }
 
 //Procedure pour trier les étudiants par nom par Tedikus
