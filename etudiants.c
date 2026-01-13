@@ -139,28 +139,35 @@ void modifierEtudiant(etudiant T[], int nb) {
         printf("Etudiant non trouve !");
     } else {
         printf("Nom : ");
-        scanf("%29s", T[i].nom);
+        fgets(T[*nb].nom, 30, stdin);
+        T[*nb].nom[strcspn(T[*nb].nom, "\n")] = '\0';
 
         printf("Prenom : ");
-        scanf("%29s", T[i].prenom);
+        fgets(T[*nb].prenom, 30, stdin);
+        T[*nb].prenom[strcspn(T[*nb].prenom, "\n")] = '\0';
 
         printf("Date de naissance (jour mois annee) : ");
-        scanf("%d %d %d",
-                &T[i].date.jour,
-                &T[i].date.mois,
-                &T[i].date.annee);
+        fgets(temp, sizeof(temp), stdin);
+        sscanf(temp, "%d %d %d",
+            &T[*nb].date.jour,
+            &T[*nb].date.mois,
+            &T[*nb].date.annee);
 
         printf("Lieu de naissance : ");
-        scanf("%29s", T[i].lieu);
+        fgets(T[*nb].lieu, 30, stdin);
+        T[*nb].lieu[strcspn(T[*nb].lieu, "\n")] = '\0';
 
         printf("Departement : ");
-        scanf("%29s", T[i].departement);
+        fgets(T[*nb].departement, 30, stdin);
+        T[*nb].departement[strcspn(T[*nb].departement, "\n")] = '\0';
 
         printf("Filiere : ");
-        scanf("%29s", T[i].filiere);
+        fgets(T[*nb].filiere, 30, stdin);
+        T[*nb].filiere[strcspn(T[*nb].filiere, "\n")] = '\0';
 
         printf("Telephone : ");
-        scanf("%14s", T[i].telephone);
+        fgets(T[*nb].telephone, 15, stdin);
+        T[*nb].telephone[strcspn(T[*nb].telephone, "\n")] = '\0';
 
         sauvegarderFichier(T, nb);
 
