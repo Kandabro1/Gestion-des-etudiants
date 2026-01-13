@@ -87,7 +87,7 @@ int lireNbEtudiants(){
         return 0;
 
     while (fgets(ligne, sizeof(ligne), f)){
-        if (sscanf(ligne, "Nombre d'etudiants enregistres : %d", &temp) == 1){
+        if (sscanf(ligne, "NB %d", &temp) == 1){
             nb = temp; 
         }
     }
@@ -101,13 +101,13 @@ void sauvegarderNbEtudiants(int nb){
     FILE *f = fopen("etudiants.txt", "a");
     if (f == NULL) return;
 
-    fprintf(f, "\nNombre d'etudiants enregistres : %d\n", nb);
+    fprintf(f, "\nNB enregistres : %d\n", nb);
     fclose(f);
 }
 
 //Procedure pour Afficher le nombre d'étudiants par Alhadj
 int voirNombreEtudiants(int nb){
-    printf("\nNombre d'etudiants enregistres : %d\n", nb);
+    printf("\nNB enregistres : %d\n", nb);
     return nb;
 }
 
@@ -134,14 +134,14 @@ void supprimerEtudiant(etudiant T[], int *nb) {
 
 //Procedure pour trier les étudiants par nom par Tedikus
 void trierParNom(etudiant T[], int nb){
-    if (nombreEtudiants == 0) {
+    if (NB == 0) {
         printf("Pas d'etudiants\n");
         return;
     }
     
     int i, j;
-    for (i = 0; i < nombreEtudiants - 1; i++) {
-        for (j = i + 1; j < nombreEtudiants; j++) {
+    for (i = 0; i < NB - 1; i++) {
+        for (j = i + 1; j < NB; j++) {
             if (comparer_noms(listeEtudiants[j].nom, listeEtudiants[i].nom) < 0) {
                 /* Echange */
                 Etudiant temp = listeEtudiants[i];
@@ -155,14 +155,14 @@ void trierParNom(etudiant T[], int nb){
 
 //Procedure pour trier les étudiants par filiere par Tedikus
 void trierParFilere(etudiant T[], int nb){
-   if (nombreEtudiants == 0) {
+   if (NB == 0) {
         printf("Pas d'etudiants\n");
         return;
     }
     
     int i, j;
-    for (i = 0; i < nombreEtudiants - 1; i++) {
-        for (j = i + 1; j < nombreEtudiants; j++) {
+    for (i = 0; i < NB - 1; i++) {
+        for (j = i + 1; j < NB; j++) {
             if (comparer_noms(listeEtudiants[j].filiere, listeEtudiants[i].filiere) < 0) {
                 /* Echange */
                 Etudiant temp = listeEtudiants[i];
