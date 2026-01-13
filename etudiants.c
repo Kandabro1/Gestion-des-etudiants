@@ -119,17 +119,75 @@ void enregistrerEtudiants(etudiant T[], int *nb, int N) {
 }
 
 // Procedure pour modifier un étudiant par bobboy
+int chercherEtudiant(Etudiant e[], int n, int matricule) {
+    for (int i = 0; i < n; i++) {
+        if (e[i].matricule == matricule)
+            return i;
+    }
+    return -1;
+}
+
+
 void modifierEtudiant(etudiant T[], int nb) {
-    /* 
-    Code de bobboy 
-    */
+    int mat, pos;
+    printf("\nEntrer le matricule de l'etudiant a modifier: ");
+    scanf("%d", &mat);
+
+    pos = chercherEtudiant(T, nb, mat);
+
+    if (pos == -1) {
+        printf("Etudiant non trouve !");
+    } else {
+        printf("Nom : ");
+        scanf("%29s", T[i].nom);
+
+        printf("Prenom : ");
+        scanf("%29s", T[i].prenom);
+
+        printf("Date de naissance (jour mois annee) : ");
+        scanf("%d %d %d",
+                &T[i].date.jour,
+                &T[i].date.mois,
+                &T[i].date.annee);
+
+        printf("Lieu de naissance : ");
+        scanf("%29s", T[i].lieu);
+
+        printf("Departement : ");
+        scanf("%29s", T[i].departement);
+
+        printf("Filiere : ");
+        scanf("%29s", T[i].filiere);
+
+        printf("Telephone : ");
+        scanf("%14s", T[i].telephone);
+
+        sauvegarderFichier(T, nb);
+
+        printf("Modification reussie !\n");
+        break;
+    }
 }
 
 // Procedure pour supprimer un étudiant par bobboy
 void supprimerEtudiant(etudiant T[], int *nb) {
-    /* 
-    Code de bobboy 
-    */
+    int mat, pos;
+    printf("\nEntrer le matricule de l'etudiant a supprimer: ");
+    scanf("%d", &mat);
+
+    pos = chercherEtudiant(T, *nb, mat);
+
+    if (pos == -1) {
+        printf("Etudiant non trouve !");
+    } else {
+        for (int i = pos; i < *n - 1; i++) {
+            T[i] = T[i + 1];
+        }
+        (*nb)--;
+        sauvegarderNbEtudiants(*nb);
+        printf("Etudiant supprime avec succes !");
+        sauvegarderFichier(T, *nb);
+    }
 }
 
 //Procedure pour trier les étudiants par nom par Tedikus
