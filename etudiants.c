@@ -112,66 +112,67 @@ int voirNombreEtudiants(int nb){
 }
 
 // Procedure pour enregistrer les étudiants par Aman
-void saisir_etudiant(Gestion_des_Etudiants *liste, int *nb_actuel) {
-    // Validation 1 : Vérification de la capacité maximale du tableau
-    if (*nb_actuel >= MAX_ETUDIANTS) {
-        printf("Erreur : La liste est pleine. Impossible d'ajouter un nouvel etudiant.\n");
-        return;
+void enregistrerEtudiants(etudiant T[], int *nb, int N) {
+    char rep[10];
+    char temp[100];
+    
+    // VIDER LE BUFFER DES LE DEBUT
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    do {
+        if (*nb >= N) {
+            printf("Nombre maximum d'etudiants atteint !\n");
+            return;
         }
 
-    printf("\n--- Saisie d'un nouvel etudiant ---\n");
+        printf("\n--- Etudiant %d ---\n", *nb + 1);
+        
+        printf("Matricule : ");
+        fgets(T[*nb].matricule, 20, stdin);
+        T[*nb].matricule[strcspn(T[*nb].matricule, "\n")] = '\0';
 
-    // Saisie du Matricule avec validation de taille (max 10 caracteres pour un tableau de 10)
-    printf("Matricule (max 10 caracteres) : ");
-    scanf("%9s", liste[*nb_actuel].matricule);
-    while (getchar() != '\n'); // Nettoyage du buffer
+        printf("Nom : ");
+        fgets(T[*nb].nom, 30, stdin);
+        T[*nb].nom[strcspn(T[*nb].nom, "\n")] = '\0';
 
-    // Saisie du Nom avec validation de taille (max 49 caracteres pour un tableau de 50)
-    printf("Nom : ");
-    scanf("%49s", liste[*nb_actuel].nom);
-    while (getchar() != '\n'); // Nettoyage du buffer
+        printf("Prenom : ");
+        fgets(T[*nb].prenom, 30, stdin);
+        T[*nb].prenom[strcspn(T[*nb].prenom, "\n")] = '\0';
 
-    printf("Prenom : ");
-    scanf("%49s", liste[*nb_actuel].prenom);
-    while (getchar() != '\n');
+        printf("Date de naissance (jour mois annee) : ");
+        fgets(temp, sizeof(temp), stdin);
+        sscanf(temp, "%d %d %d",
+            &T[*nb].date.jour,
+            &T[*nb].date.mois,
+            &T[*nb].date.annee);
 
-    // Saisie de la Date de naissance (validation de type implicite avec %d)
-    printf("Date de naissance (Jour/Mois/Annee, ex: 15/03/2000) : ");
-    scanf("%d/%d/%d", &liste[*nb_actuel].date_naissance.jour,
-                      &liste[*nb_actuel].date_naissance.mois,
-                      &liste[*nb_actuel].date_naissance.annee);
-                      while (getchar() != '\n');
+        printf("Lieu de naissance : ");
+        fgets(T[*nb].lieu, 30, stdin);
+        T[*nb].lieu[strcspn(T[*nb].lieu, "\n")] = '\0';
 
-    // ... (saisie des autres champs avec la même logique de validation de taille)
+        printf("Departement : ");
+        fgets(T[*nb].departement, 30, stdin);
+        T[*nb].departement[strcspn(T[*nb].departement, "\n")] = '\0';
 
-    printf("Sexe : ");
-    scanf("%9s", liste[*nb_actuel].sexe);
-    while (getchar() != '\n');
+        printf("Filiere : ");
+        fgets(T[*nb].filiere, 30, stdin);
+        T[*nb].filiere[strcspn(T[*nb].filiere, "\n")] = '\0';
 
-    printf("Departement : ");
-    scanf("%49s", liste[*nb_actuel].departement);
-    while (getchar() != '\n');
+        printf("Telephone : ");
+        fgets(T[*nb].telephone, 15, stdin);
+        T[*nb].telephone[strcspn(T[*nb].telephone, "\n")] = '\0';
 
-    printf("Filiere : ");
-    scanf("%49s", liste[*nb_actuel].filiere);
-    while (getchar() != '\n');
+        (*nb)++;
+        sauvegarderFichier(T, *nb);
 
-    printf("Region d'origine : ");
-    scanf("%49s", liste[*nb_actuel].region_origine);
-    while (getchar() != '\n');
+        printf("\nAjouter un autre etudiant ? (o/n) : ");
+        fgets(rep, sizeof(rep), stdin);
+        rep[strcspn(rep, "\n")] = '\0';
 
-    // Mise à jour du compteur d'etudiants
-    (*nb_actuel)++;
-    printf("Etudiant enregistrer avec succes a l'index %d.\n", *nb_actuel - 1);
+    } while (rep[0] == 'o' || rep[0] == 'O');
 }
-// Fonction principale
-int main(void) {
-    Gestion_des_Etudiants etudiants[MAX_ETUDIANTS];
-    int nb_actuel = 0;
 
-    saisir_etudiant(etudiants, &nb_actuel);
-
-}
 
 // Procedure pour modifier un étudiant par bobboy
 void modifierEtudiant(etudiant T[], int nb) {
