@@ -4,7 +4,7 @@
 
 
 // Procedure pour gérer le nombre d'étudiants par Alhadj
-void gererNombreEtudiants(){
+int gererNombreEtudiants(){
     FILE *f;
     char ligne[100];
     int N;
@@ -43,24 +43,6 @@ void gererNombreEtudiants(){
     }
 }
 
-// Procedure pour enregistrer le nombre d'étudiants a gerer par Alhadj
-void gererNombreEtudiants(int nb){
-    FILE *f;
-
-    // Ouverture en mode ajout (écriture à la fin)
-    f = fopen("etudiants.txt", "a");
-
-    if (f == NULL)
-    {
-        printf("Erreur : impossible d'ouvrir le fichier.\n");
-        return;
-    }
-
-    // Écriture du nombre d'étudiants à la fin du fichier
-    fprintf(f, "Nombre d'etudiants enregistres : %d\n", nb);
-
-    fclose(f);
-}
 
 
 // Procedure pour sauvegarder les etudiants dans un fichier par Alhadj
@@ -124,8 +106,7 @@ void sauvegarderNbEtudiants(int nb){
 }
 
 //Procedure pour Afficher le nombre d'étudiants par Alhadj
-int voirNombreEtudiants(int nb)
-{
+int voirNombreEtudiants(int nb){
     printf("\nNombre d'etudiants enregistres : %d\n", nb);
     return nb;
 }
@@ -133,22 +114,87 @@ int voirNombreEtudiants(int nb)
 // Procedure pour enregistrer les étudiants par Aman
 void enregistrerEtudiants(etudiant T[], int *nb, int N) {
     /* 
-    Code d'Aman
+    Code 
     */
 }
 
 // Procedure pour modifier un étudiant par bobboy
+int chercherEtudiant( T[], int n, int matricule) {
+    for (int i = 0; i < n; i++) {
+        if (e[i].matricule == matricule)
+            return i;
+    }
+    return -1;
+}
+
+
 void modifierEtudiant(etudiant T[], int nb) {
-    /* 
-    Code de bobboy 
-    */
+    int mat, pos;
+    printf("\nEntrer le matricule de l'etudiant a modifier: ");
+    scanf("%d", &mat);
+
+    pos = chercherEtudiant(T, nb, mat);
+
+    if (pos == -1) {
+        printf("Etudiant non trouve !");
+    } else {
+        printf("Nom : ");
+        fgets(T[*nb].nom, 30, stdin);
+        T[*nb].nom[strcspn(T[*nb].nom, "\n")] = '\0';
+
+        printf("Prenom : ");
+        fgets(T[*nb].prenom, 30, stdin);
+        T[*nb].prenom[strcspn(T[*nb].prenom, "\n")] = '\0';
+
+        printf("Date de naissance (jour mois annee) : ");
+        fgets(temp, sizeof(temp), stdin);
+        sscanf(temp, "%d %d %d",
+            &T[*nb].date.jour,
+            &T[*nb].date.mois,
+            &T[*nb].date.annee);
+
+        printf("Lieu de naissance : ");
+        fgets(T[*nb].lieu, 30, stdin);
+        T[*nb].lieu[strcspn(T[*nb].lieu, "\n")] = '\0';
+
+        printf("Departement : ");
+        fgets(T[*nb].departement, 30, stdin);
+        T[*nb].departement[strcspn(T[*nb].departement, "\n")] = '\0';
+
+        printf("Filiere : ");
+        fgets(T[*nb].filiere, 30, stdin);
+        T[*nb].filiere[strcspn(T[*nb].filiere, "\n")] = '\0';
+
+        printf("Telephone : ");
+        fgets(T[*nb].telephone, 15, stdin);
+        T[*nb].telephone[strcspn(T[*nb].telephone, "\n")] = '\0';
+
+        sauvegarderFichier(T, nb);
+
+        printf("Modification reussie !\n");
+        break;
+    }
 }
 
 // Procedure pour supprimer un étudiant par bobboy
 void supprimerEtudiant(etudiant T[], int *nb) {
-    /* 
-    Code de bobboy 
-    */
+    int mat, pos;
+    printf("\nEntrer le matricule de l'etudiant a supprimer: ");
+    scanf("%d", &mat);
+
+    pos = chercherEtudiant(T, *nb, mat);
+
+    if (pos == -1) {
+        printf("Etudiant non trouve !");
+    } else {
+        for (int i = pos; i < *nb - 1; i++) {
+            T[i] = T[i + 1];
+        }
+        (*nb)--;
+        sauvegarderNbEtudiants(*nb);
+        printf("Etudiant supprime avec succes !");
+        sauvegarderFichier(T, *nb);
+    }
 }
 
 //Procedure pour trier les étudiants par nom par Tedikus

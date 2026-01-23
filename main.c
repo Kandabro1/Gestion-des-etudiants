@@ -3,21 +3,25 @@
 #include "etudiants.h"
 
 int main() {
-    int N;      // nombre maximum d'étudiants
-    int nb, choix;     // nombre déjà enregistrés
-    etudiant *T;
+    etudiant *T = NULL;
+    int N = 0, nb = 0, choix;
 
-    // Demande N ou lit depuis le fichier
+    // 1. Récupérer la taille N (soit dans le fichier, soit par saisie)
     N = gererNombreEtudiants();
 
-    // Allocation dynamique
-    T = malloc(N * sizeof(etudiant));
-
-    nb = lireNbEtudiants();
-    if (T == NULL)
-    {
-        printf("Erreur d'allocation memoire.\n");
+    // 2. Allouer la mémoire dynamiquement pour le tableau T
+    T = (etudiant*) malloc(N * sizeof(etudiant));
+    if (T == NULL) {
+        printf("Erreur critique : Impossible d'allouer la memoire !\n");
         return 1;
+    }
+
+    // 3. Charger les données existantes depuis le fichier vers la RAM
+    nb = chargerFichier(T);
+    if (nb > 0) {
+        printf("[%d etudiants charges avec succes depuis le fichier]\n", nb);
+    } else {
+        printf("[Aucun etudiant precedent trouve, base de donnee vide]\n");
     }
 
     do {

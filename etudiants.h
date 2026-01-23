@@ -1,6 +1,5 @@
 #ifndef ETUDIANTS_H
 #define ETUDIANTS_H
-
 #include <stdio.h>
 
 //Declaration des structures
@@ -23,15 +22,20 @@ typedef struct {
 
 
 //Declaration des fonctions
+
 void sauvegarderFichier(etudiant T[], int nb);
+
+int gererNombreEtudiants();
+
+void voirNombreEtudiants(int nb);
 
 void enregistrerEtudiants(etudiant T[], int *nb, int N);
 
-void modifierEtudiant(etudiant T[], int nb);
+void modifierEtudiant(etudiant T[], int nb, int N); // Ajout de N pour la reecriture
 
 void recherche(etudiant T[], int nb);
 
-void supprimerEtudiant(etudiant T[], int *nb);
+void supprimerEtudiant(etudiant T[], int *nb, int N); // Ajout de N pour la reecriture
 
 void trierParNom(etudiant T[], int nb);
 
@@ -40,5 +44,9 @@ void trierParFiliere(etudiant T[], int nb);
 void rechercheDichotomiqueParNom(etudiant T[], int nb);
 
 void calculAge();
+
+int chargerFichier(etudiant T[]);
+
+void reecrireFichierComplet(etudiant T[], int nb, int N);
 
 #endif
