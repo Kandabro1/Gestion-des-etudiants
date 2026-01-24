@@ -111,10 +111,57 @@ void voirNombreEtudiants(int nb) {
 
 // Procedure pour enregistrer les étudiants par Aman
 void enregistrerEtudiants(etudiant T[], int *nb, int N) {
-    /*
-    Code d'Aman
-    */
+    char rep[10];
+    char temp[100];
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+    do {
+        if (*nb >= N) {
+            printf("\nErreur : Capacite maximale (%d) atteinte.\n", N);
+            break;
+        }
+        printf("\n--- Etudiant %d ---\n", *nb + 1);
+        printf("Matricule : ");
+        fgets(T[*nb].matricule, 20, stdin);
+        T[*nb].matricule[strcspn(T[*nb].matricule, "\n")] = '\0';
+
+        printf("Nom : ");
+        fgets(T[*nb].nom, 30, stdin);
+        T[*nb].nom[strcspn(T[*nb].nom, "\n")] = '\0';
+
+        printf("Prenom : ");
+        fgets(T[*nb].prenom, 30, stdin);
+        T[*nb].prenom[strcspn(T[*nb].prenom, "\n")] = '\0';
+
+        printf("Date de naissance (j m a) : ");
+        fgets(temp, sizeof(temp), stdin);
+        sscanf(temp, "%d %d %d", &T[*nb].date.jour, &T[*nb].date.mois, &T[*nb].date.annee);
+
+        printf("Lieu de naissance : ");
+        fgets(T[*nb].lieu, 30, stdin);
+        T[*nb].lieu[strcspn(T[*nb].lieu, "\n")] = '\0';
+
+        printf("Departement : ");
+        fgets(T[*nb].departement, 30, stdin);
+        T[*nb].departement[strcspn(T[*nb].departement, "\n")] = '\0';
+
+        printf("Filiere : ");
+        fgets(T[*nb].filiere, 30, stdin);
+        T[*nb].filiere[strcspn(T[*nb].filiere, "\n")] = '\0';
+
+        printf("Telephone : ");
+        fgets(T[*nb].telephone, 15, stdin);
+        T[*nb].telephone[strcspn(T[*nb].telephone, "\n")] = '\0';
+
+        (*nb)++;
+        sauvegarderFichier(T, *nb);
+        printf("\nAjouter un autre ? (o/n) : ");
+        fgets(rep, sizeof(rep), stdin);
+        rep[strcspn(rep, "\n")] = '\0';
+    } while (rep[0] == 'o' || rep[0] == 'O');
+    voirNombreEtudiants(*nb);
 }
+
 
 // Procedure pour modifier un étudiant par bobboy
 void modifierEtudiant(etudiant T[], int nb, int N) {
