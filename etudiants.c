@@ -197,16 +197,29 @@ void supprimerEtudiant(etudiant T[], int *nb) {
 
 //Procedure pour trier les étudiants par nom par Tedikus
 void trierParNom(etudiant T[], int nb){
-    /* 
-    Code de Tedikus 
-    */
+    etudiant temp;
+    for (int i = 0; i < nb - 1; i++) {
+        for (int j = i + 1; j < nb; j++) {
+            if (strcmp(T[i].nom, T[j].nom) > 0) {
+                temp = T[i]; T[i] = T[j]; T[j] = temp;
+            }
+        }
+    }
+    printf("Tri par nom termine.\n");
 }
+
 
 //Procedure pour trier les étudiants par filiere par Tedikus
 void trierParFilere(etudiant T[], int nb){
-    /* 
-    Code de Tedikus 
-    */
+     etudiant temp;
+    for (int i = 0; i < nb - 1; i++) {
+        for (int j = i + 1; j < nb; j++) {
+            if (strcmp(T[i].filiere, T[j].filiere) > 0) {
+                temp = T[i]; T[i] = T[j]; T[j] = temp;
+            }
+        }
+    }
+    printf("Tri par filiere termine.\n");
 }
 
 // Procedure pour la Recherche par matricule par Movitch
