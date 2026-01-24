@@ -214,18 +214,45 @@ void trierParFilere(etudiant T[], int nb){
     printf("Tri par filiere termine.\n");
 }
 
-// Procedure pour la Recherche par matricule par Movitch
+// Procedure pour la Recherche par matricule par Amadou
 void recherche(etudiant T[], int nb) {
-    /* 
-    Code de Movitch
-    */
+    char mat[30];
+    int i, trouve = 0;
+    
+    printf ("matricule a rechercher");
+    scanf("%s", mat);
+    for (i=0; i<nb; i++){
+
+        if (strcmp(T[i].matricule, mat) ==0){
+            printf ("trouve: %s %s\n", T[i].nom, T[i].prenom);
+            trouve=1;
+        }
+    }
+ if(!trouve) printf("aucun resultat.\n");
 }
 
-// Procedure Recherche dichotomique par nom
-void rechercheDichotomiqueParNom(etudiant T[], int nb) {
-    /* 
-    Code de Movitch
-    */
+
+// Procedure Recherche dichotomique par nom Amadou
+void recherchedichotomiqueparnom(etudiant T[], int nb){
+    char nom[30];
+    int bas=0, haut=nb-1, mil, trouve=0;
+    trierparnom(T, nb);
+    printf("nom a rechercher (dichotomie):");
+    scanf("%s", nom);
+    
+    while (bas <= haut){
+        mil=(bas+haut)/2;
+
+        if (strcmp(T[mil].nom, nom)==0){
+            printf("trouve : %s %s\n",T[mil].nom, T[mil].prenom);
+            trouve=1;
+            break;
+        }
+        if (strcmp(T[mil].nom, nom) < 0) bas=mil+1;
+        else haut=mil-1; 
+    }
+    if (!trouve) printf("non trouve.\n");
+
 }
 
 // Procedure pour calculer l'age par Alhadj
