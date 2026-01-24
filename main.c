@@ -45,10 +45,10 @@ int main() {
                 enregistrerEtudiants(T, &nb, N);
                 break;
             case 2:
-                modifierEtudiant(T, nb);
+                modifierEtudiant(T, nb, N);
                 break;
             case 3:
-                supprimerEtudiant(T, &nb);
+                supprimerEtudiant(T, &nb, N);
                 break;
             case 4:
                 recherche(T, nb);
