@@ -117,82 +117,74 @@ void enregistrerEtudiants(etudiant T[], int *nb, int N) {
 }
 
 // Procedure pour modifier un étudiant par bobboy
-int chercherEtudiant(Etudiant e[], int n, int matricule) {
-    for (int i = 0; i < n; i++) {
-        if (e[i].matricule == matricule)
-            return i;
+void modifierEtudiant(etudiant T[], int nb, int N) {
+    char mat[20], temp[100];
+    int i, trouve = 0, c;
+
+    printf("Matricule de l'etudiant a modifier : ");
+    scanf("%s", mat);
+    
+    // Nettoyage du buffer après le scanf
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    for (i = 0; i < nb; i++) {
+        if (strcmp(T[i].matricule, mat) == 0) {
+            trouve = 1;
+            printf("\n--- Modification de l'etudiant %s ---\n", mat);
+            
+            printf("Nouveau Nom : ");
+            fgets(T[i].nom, 30, stdin);
+            T[i].nom[strcspn(T[i].nom, "\n")] = '\0';
+
+            printf("Nouveau Prenom : ");
+            fgets(T[i].prenom, 30, stdin);
+            T[i].prenom[strcspn(T[i].prenom, "\n")] = '\0';
+
+            printf("Nouvelle Date de naissance (j m a) : ");
+            fgets(temp, sizeof(temp), stdin);
+            sscanf(temp, "%d %d %d", &T[i].date.jour, &T[i].date.mois, &T[i].date.annee);
+
+            printf("Nouveau Lieu de naissance : ");
+            fgets(T[i].lieu, 30, stdin);
+            T[i].lieu[strcspn(T[i].lieu, "\n")] = '\0';
+
+            printf("Nouveau Departement : ");
+            fgets(T[i].departement, 30, stdin);
+            T[i].departement[strcspn(T[i].departement, "\n")] = '\0';
+
+            printf("Nouvelle Filiere : ");
+            fgets(T[i].filiere, 30, stdin);
+            T[i].filiere[strcspn(T[i].filiere, "\n")] = '\0';
+
+            printf("Nouveau Telephone : ");
+            fgets(T[i].telephone, 15, stdin);
+            T[i].telephone[strcspn(T[i].telephone, "\n")] = '\0';
+
+            reecrireFichierComplet(T, nb, N);
+            printf("\nModification enregistree avec succes dans le fichier.\n");
+            break;
+        }
     }
-    return -1;
-}
-
-
-void modifierEtudiant(etudiant T[], int nb) {
-    int mat, pos;
-    printf("\nEntrer le matricule de l'etudiant a modifier: ");
-    scanf("%d", &mat);
-
-    pos = chercherEtudiant(T, nb, mat);
-
-    if (pos == -1) {
-        printf("Etudiant non trouve !");
-    } else {
-        printf("Nom : ");
-        fgets(T[*nb].nom, 30, stdin);
-        T[*nb].nom[strcspn(T[*nb].nom, "\n")] = '\0';
-
-        printf("Prenom : ");
-        fgets(T[*nb].prenom, 30, stdin);
-        T[*nb].prenom[strcspn(T[*nb].prenom, "\n")] = '\0';
-
-        printf("Date de naissance (jour mois annee) : ");
-        fgets(temp, sizeof(temp), stdin);
-        sscanf(temp, "%d %d %d",
-            &T[*nb].date.jour,
-            &T[*nb].date.mois,
-            &T[*nb].date.annee);
-
-        printf("Lieu de naissance : ");
-        fgets(T[*nb].lieu, 30, stdin);
-        T[*nb].lieu[strcspn(T[*nb].lieu, "\n")] = '\0';
-
-        printf("Departement : ");
-        fgets(T[*nb].departement, 30, stdin);
-        T[*nb].departement[strcspn(T[*nb].departement, "\n")] = '\0';
-
-        printf("Filiere : ");
-        fgets(T[*nb].filiere, 30, stdin);
-        T[*nb].filiere[strcspn(T[*nb].filiere, "\n")] = '\0';
-
-        printf("Telephone : ");
-        fgets(T[*nb].telephone, 15, stdin);
-        T[*nb].telephone[strcspn(T[*nb].telephone, "\n")] = '\0';
-
-        sauvegarderFichier(T, nb);
-
-        printf("Modification reussie !\n");
-        break;
-    }
+    if (!trouve) printf("Aucun etudiant trouve avec le matricule %s.\n", mat);
 }
 
 // Procedure pour supprimer un étudiant par bobboy
-void supprimerEtudiant(etudiant T[], int *nb) {
-    int mat, pos;
-    printf("\nEntrer le matricule de l'etudiant a supprimer: ");
-    scanf("%d", &mat);
-
-    pos = chercherEtudiant(T, *nb, mat);
-
-    if (pos == -1) {
-        printf("Etudiant non trouve !");
-    } else {
-        for (int i = pos; i < *n - 1; i++) {
-            T[i] = T[i + 1];
+void supprimerEtudiant(etudiant T[], int *nb, int N) {
+    char mat[20];
+    int i, j, trouve = 0;
+    printf("Matricule de l'etudiant a supprimer : ");
+    scanf("%s", mat);
+    for (i = 0; i < *nb; i++) {
+        if (strcmp(T[i].matricule, mat) == 0) {
+            trouve = 1;
+            for (j = i; j < *nb - 1; j++) T[j] = T[j+1];
+            (*nb)--;
+            reecrireFichierComplet(T, *nb, N);
+            printf("Suppression effectuee.\n");
+            break;
         }
-        (*nb)--;
-        sauvegarderNbEtudiants(*nb);
-        printf("Etudiant supprime avec succes !");
-        sauvegarderFichier(T, *nb);
     }
+    if (!trouve) printf("Etudiant non trouve.\n");
 }
 
 //Procedure pour trier les étudiants par nom par Tedikus
