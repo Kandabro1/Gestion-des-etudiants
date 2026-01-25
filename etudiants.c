@@ -249,7 +249,7 @@ void trierParNom(etudiant T[], int nb){
 
 
 //Procedure pour trier les étudiants par filiere par Tedikus
-void trierParFilere(etudiant T[], int nb){
+void trierParFiliere(etudiant T[], int nb){
      etudiant temp;
     for (int i = 0; i < nb - 1; i++) {
         for (int j = i + 1; j < nb; j++) {
@@ -280,10 +280,10 @@ void recherche(etudiant T[], int nb) {
 
 
 // Procedure Recherche dichotomique par nom Amadou
-void recherchedichotomiqueparnom(etudiant T[], int nb){
+void rechercheDichotomiqueParNom(etudiant T[], int nb){
     char nom[30];
     int bas=0, haut=nb-1, mil, trouve=0;
-    trierparnom(T, nb);
+    trierParNom(T, nb);
     printf("nom a rechercher (dichotomie):");
     scanf("%s", nom);
     
